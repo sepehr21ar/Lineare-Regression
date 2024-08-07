@@ -34,8 +34,8 @@ print("All RMSE:", allRmse)
 print("Train RMSE:", TrainRmse)
 print("Test RMSE:", TestRmse)
 
-last_known_values = btc.iloc[-1][["Open", "Close", "Low", "High", "Gold_Close"]].to_frame().T
-future_predictions = []
+lastKnownValues = btc.iloc[-1][["Open", "Close", "Low", "High", "Gold_Close"]].to_frame().T
+futurePredictions = []
 
 for _ in range(100):  # پیش‌بینی برای ۱۰ روز آینده
     nextPrediction = model.predict(lastKnownValues)
