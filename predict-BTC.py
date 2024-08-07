@@ -38,25 +38,25 @@ last_known_values = btc.iloc[-1][["Open", "Close", "Low", "High", "Gold_Close"]]
 future_predictions = []
 
 for _ in range(100):  # پیش‌بینی برای ۱۰ روز آینده
-    next_prediction = model.predict(last_known_values)
-    future_predictions.append(next_prediction[0])
-    last_known_values = pd.DataFrame([[
-        last_known_values["Open"].values[0],
-        next_prediction[0],
-        last_known_values["Low"].values[0],
-        last_known_values["High"].values[0],
-        last_known_values["Gold_Close"].values[0]
+    nextPrediction = model.predict(lastKnownValues)
+    futurePredictions.append(nextPrediction[0])
+    lastKnownValues = pd.DataFrame([[
+        lastKnownValues["Open"].values[0],
+        nextPrediction[0],
+        lastKnownValues["Low"].values[0],
+        lastKnownValues["High"].values[0],
+        lastKnownValues["Gold_Close"].values[0]
     ]], columns=["Open", "Close", "Low", "High", "Gold_Close"])
 
-future_dates = pd.date_range(start=btc.index[-1] + pd.Timedelta(days=1), periods=100, freq='D')
-future_df = pd.DataFrame(future_predictions, index=future_dates, columns=["Predicted Close"])
+futureDates = pd.date_range(start=btc.index[-1] + pd.Timedelta(days=1), periods=100, freq='D')
+futureDf = pd.DataFrame(futurePredictions, index=futureDates, columns=["Predicted Close"])
 
 plt.figure(figsize=(12, 6))
 plt.plot(btc.index, y, color='red', label='BTC Close')
 plt.plot(btc.index, allPred, color='black', linewidth=0.5, label='Predicted Tomorrow')
 #plt.plot(xTrain.index, yTrainPred, color='blue', label='Train')
 plt.plot(xTest.index, yTestPred, color='orange', label='Test')
-#plt.plot(future_df.index, future_df["Predicted Close"], color='green', label='Future Prediction (10 days)')
+#plt.plot(futureDf.index, futureDf["Predicted Close"], color='green', label='Future Prediction (10 days)')
 plt.title('Bitcoin Price Prediction')
 plt.xlabel('Date')
 plt.ylabel('Price (USD)')
